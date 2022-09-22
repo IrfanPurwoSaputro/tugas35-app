@@ -3,11 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Traits\ApiResponse;
-use Dotenv\Validator;
-use GuzzleHttp\Psr7\Response;
-use Illuminate\Contracts\Validation\Validator as ValidationValidator;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class ApiRequest extends FormRequest
 {
@@ -15,7 +14,7 @@ abstract class ApiRequest extends FormRequest
     
     abstract public function rules();
 
-    protected function failedValidation(ValidationValidator $validator)
+    protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException($this->apiError(
             $validator->errors(),
